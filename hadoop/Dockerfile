@@ -39,6 +39,8 @@ ENV HADOOP_VERSION=3.3.3
 
 ENV HADOOP_HOME /home/hduser/hadoop-${HADOOP_VERSION}
 
+# TODO: This download MUST be turned into a local COPY. Requires 30 minutes give or take. Make instructions or a
+#   script to download it into the project for a COPY. We cannot have a slow curl like this during a docker build.
 RUN curl -sL --retry 3 \
   "http://archive.apache.org/dist/hadoop/common/hadoop-$HADOOP_VERSION/hadoop-$HADOOP_VERSION.tar.gz" \
   | gunzip \
