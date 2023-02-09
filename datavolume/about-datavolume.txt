@@ -1,4 +1,4 @@
-CassandraStack /datavolume/ directory
+HadoopStack /datavolume/ directory
 ============================
 
 This /datavolume/ directory is here as a placeholder and will be used to store any kind of data for persistence
@@ -18,5 +18,4 @@ of the local running instance, whether it is your development instance on your l
 or your cloud VM instance, where you will mount this directory to some kind of backed-up, persistent volume,
 so that if your VM goes away or in whatever scenario, your general application runtime/instance data and
 cross-container-shared data will remain in place and in good condition.
-
 
