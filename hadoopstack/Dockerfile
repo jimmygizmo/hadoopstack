@@ -39,16 +39,7 @@ ENV HADOOP_VERSION=3.3.3
 
 ENV HADOOP_HOME /home/hduser/hadoop-${HADOOP_VERSION}
 
-# TODO: This download MUST be turned into a local COPY. Requires 30 minutes give or take. Make instructions or a
-#   script to download it into the project for a COPY. We cannot have a slow curl like this during a docker build.
-# UPDATE: It is now in the local dir, ready to copy in, per SETUP.md
-# hadoop-3.3.3.tar.gz
-#RUN curl -sL --retry 3 \
-#  "http://archive.apache.org/dist/hadoop/common/hadoop-$HADOOP_VERSION/hadoop-$HADOOP_VERSION.tar.gz" \
-#  | gunzip \
-#  | tar -x -C /home/hduser/ \
-# && rm -rf ${HADOOP_HOME}/share/doc \
-
+# The source archive file here must be put in place manually prior to docker build. See SETUP.md
 COPY "hadoop-$HADOOP_VERSION.tar.gz" /home/hduser
 RUN gunzip "/home/hduser/hadoop-$HADOOP_VERSION.tar.gz"
 RUN tar -xvf "/home/hduser/hadoop-$HADOOP_VERSION.tar"
@@ -75,9 +66,10 @@ ENV PATH $PATH:$HADOOP_HOME/bin:$HADOOP_HOME/sbin
 
 ADD mapreduce/ mapreduce/
 
-# TODO: Following chown is brute force. Remove or make it more specific. Testing a theory.
-########RUN sudo chown -R hduser $HADOOP_HOME/etc/hadoop/
-# This fixed it!
+# This chmod fixes a permission problem preventing container startup. Exact root cause not totally understood yet.
+# Problem started after reconfiguring project but it was not a simple typo or missed conifig. Still a mystery why
+# older structure worked and then a simple project structure change caused the need for this chmod. The structure
+# change was outside the image not within it, hence why it is rather mysterious at this point. But it's fixed now!
 RUN sudo chmod -R 755 $HADOOP_HOME/etc/hadoop/
 
 EXPOSE 22
@@ -89,9 +81,6 @@ EXPOSE 8088 8030 8031 8032 8033 8040 8042
 WORKDIR /usr/local/bin
 
 RUN sudo ln -s ${HADOOP_HOME}/etc/hadoop/entrypoint.sh .
-# TODO: Following chown is brute force. Remove or make it more specific. Testing a theory.
-########RUN sudo chown -R hduser /usr/local/bin
-########RUN sudo chmod -R 755 /usr/local/bin
 
 WORKDIR /home/hduser
 
