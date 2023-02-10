@@ -41,11 +41,18 @@ ENV HADOOP_HOME /home/hduser/hadoop-${HADOOP_VERSION}
 
 # TODO: This download MUST be turned into a local COPY. Requires 30 minutes give or take. Make instructions or a
 #   script to download it into the project for a COPY. We cannot have a slow curl like this during a docker build.
-RUN curl -sL --retry 3 \
-  "http://archive.apache.org/dist/hadoop/common/hadoop-$HADOOP_VERSION/hadoop-$HADOOP_VERSION.tar.gz" \
-  | gunzip \
-  | tar -x -C /home/hduser/ \
- && rm -rf ${HADOOP_HOME}/share/doc
+# UPDATE: It is now in the local dir, ready to copy in, per SETUP.md
+# hadoop-3.3.3.tar.gz
+#RUN curl -sL --retry 3 \
+#  "http://archive.apache.org/dist/hadoop/common/hadoop-$HADOOP_VERSION/hadoop-$HADOOP_VERSION.tar.gz" \
+#  | gunzip \
+#  | tar -x -C /home/hduser/ \
+# && rm -rf ${HADOOP_HOME}/share/doc \
+
+COPY "hadoop-$HADOOP_VERSION.tar.gz" /home/hduser
+RUN gunzip "/home/hduser/hadoop-$HADOOP_VERSION.tar.gz"
+RUN tar -xvf "/home/hduser/hadoop-$HADOOP_VERSION.tar"
+RUN rm -rf ${HADOOP_HOME}/share/doc
 
 ENV HDFS_NAMENODE_USER hduser
 
@@ -68,6 +75,9 @@ ENV PATH $PATH:$HADOOP_HOME/bin:$HADOOP_HOME/sbin
 
 ADD mapreduce/ mapreduce/
 
+# TODO: Following chown is brute force. Remove or make it more specific. Testing a theory.
+#RUN chown -R hduser $HADOOP_HOME/etc/hadoop/
+
 EXPOSE 22
 EXPOSE 50070 50075 50010 50020 50090
 EXPOSE 8020 9000 9864 9870
@@ -77,6 +87,8 @@ EXPOSE 8088 8030 8031 8032 8033 8040 8042
 WORKDIR /usr/local/bin
 
 RUN sudo ln -s ${HADOOP_HOME}/etc/hadoop/entrypoint.sh .
+# TODO: Following chown is brute force. Remove or make it more specific. Testing a theory.
+RUN sudo chown -R hduser /usr/local/bin
 
 WORKDIR /home/hduser
 
