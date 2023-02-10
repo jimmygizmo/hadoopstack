@@ -5,6 +5,8 @@
 
 ### Simplest possible Docker Compose startup:
 
+#### cd into the project root directory
+
 docker-compose up
 
 http://localhost:9870
@@ -12,6 +14,8 @@ http://localhost:9870
 ----
 
 ### Standard Docker startup:
+
+#### cd into the hadoopstack directory which is inside the project root directory
 
 #### Build the image and tag it "hadoopstack":
 

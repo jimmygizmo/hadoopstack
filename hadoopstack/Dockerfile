@@ -76,7 +76,9 @@ ENV PATH $PATH:$HADOOP_HOME/bin:$HADOOP_HOME/sbin
 ADD mapreduce/ mapreduce/
 
 # TODO: Following chown is brute force. Remove or make it more specific. Testing a theory.
-#RUN chown -R hduser $HADOOP_HOME/etc/hadoop/
+########RUN sudo chown -R hduser $HADOOP_HOME/etc/hadoop/
+# This fixed it!
+RUN sudo chmod -R 755 $HADOOP_HOME/etc/hadoop/
 
 EXPOSE 22
 EXPOSE 50070 50075 50010 50020 50090
@@ -88,7 +90,8 @@ WORKDIR /usr/local/bin
 
 RUN sudo ln -s ${HADOOP_HOME}/etc/hadoop/entrypoint.sh .
 # TODO: Following chown is brute force. Remove or make it more specific. Testing a theory.
-RUN sudo chown -R hduser /usr/local/bin
+########RUN sudo chown -R hduser /usr/local/bin
+########RUN sudo chmod -R 755 /usr/local/bin
 
 WORKDIR /home/hduser
 
