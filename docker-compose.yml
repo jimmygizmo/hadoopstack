@@ -16,7 +16,7 @@ services:
   # ---- HADOOPSTACK - SINGLE CONTAINER HADOOP ----
   hadoopstack-hadoop:
     container_name: hadoopstack-hadoop
-    build: ./hadoopstack
+    build: ./hadoop
     image: hadoopstack-hadoop
     #    environment:
     #      VAR1: value1

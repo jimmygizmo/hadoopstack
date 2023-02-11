@@ -1,20 +1,14 @@
 
 node_modules/
 
-# todo/ is just random in-progress stuff that's a little too unkempt or irrellevant for the repo.
-todo/
+# todo/ contains work files for the project that are a little too unkempt or irrellevant for the repo.
+work/
 
-# This archive is to be put in place in this dir by a manual step in SETUP.md.
+# This archive is to be put in place in this dir by a manual step in SETUP.md
 # This entry makes sure this file is not added to the repository.
 # TODO: Specific versioned filename is super brittle. Make it an entire dir of its own.
-hadoopstack/hadoop-3.3.3.tar.gz
+hadoop/hadoop-3.3.3.tar.gz
 
-# For the following handful of about files, we keep the directory and the about file in place,
-# but ignore everything else. It is the about file itself that causes git to store the directory.
-# Git will not store an empty directory by itself. All of the following directories we do want to
-# be kept in the repository, but we don't want any of their other contents to ever be added to the repo.
-# Some of those contents are sensitive and must not be added to any code repository and some of
-# those contents are build output, or runtime data which must be kept from polluting the repository accidentally.
 
 # Git will not add anything inside this directory except the .gitkeep file which allows git to store an empty dir.
 datavolume/*

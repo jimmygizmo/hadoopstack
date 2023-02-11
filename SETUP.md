@@ -2,9 +2,9 @@
 
 ----
 
-#### cd into the hadoopstack directory where the Dockerfile is located
+#### cd into the "hadoop" directory where the Dockerfile is located
 
-     cd hadoopstack
+     cd hadoop
 
 #### Download the Apache Hadoop package:
 
