@@ -16,8 +16,9 @@ hadoopstack/hadoop-3.3.3.tar.gz
 # Some of those contents are sensitive and must not be added to any code repository and some of
 # those contents are build output, or runtime data which must be kept from polluting the repository accidentally.
 
+# Git will not add anything inside this directory except the .gitkeep file which allows git to store an empty dir.
 datavolume/*
-!datavolume/about-datavolume.txt
+!datavolume/.gitkeep
 
 
 .idea
