@@ -1,0 +1,36 @@
+version: '3'
+
+networks:
+  hadoopstack-network:
+
+volumes:
+  datavolume:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ./datavolume
+
+services:
+
+  # ---- HADOOPSTACK - SINGLE CONTAINER HADOOP ----
+  hadoopstack-hadoop:
+    container_name: hadoopstack-hadoop
+    build: ./hadoop
+    image: hadoopstack-hadoop
+    #    environment:
+    #      VAR1: value1
+    #      VAR2: value2
+    networks:
+      - hadoopstack-network
+    ports:
+      - "9864:9864"
+      - "9870:9870"
+      - "8088:8088"
+    volumes:
+      - datavolume:/app/datavolume
+    command: "/usr/local/bin/entrypoint.sh"
+
+
+######################################################################################################################
+

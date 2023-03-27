@@ -1,0 +1,8 @@
+
+
+Related info:
+
+This documents a non-container strategy, but it has lots of useful info which is relevant:
+Single Node Cluster. All-in-one-service and also as separate services (processes) in one host:
+https://hadoop.apache.org/docs/stable/hadoop-project-dist/hadoop-common/SingleCluster.html
+
